@@ -6,8 +6,18 @@ const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY!;
 const CONFIRM_TOKEN = process.env.CONFIRM_TOKEN || "APPLY";
 
 function requireKey(req: Request) {
-  if (req.headers.get("x-api-key") !== INTERNAL_API_KEY) throw new Error("unauthorized");
+  const x = req.headers.get("x-api-key")?.trim();
+
+  const auth = req.headers.get("authorization")?.trim() || "";
+  const bearer = auth.toLowerCase().startsWith("bearer ")
+    ? auth.slice(7).trim()
+    : undefined;
+
+  const key = x || bearer;
+
+  if (!key || key !== INTERNAL_API_KEY) throw new Error("unauthorized");
 }
+
 
 function extractPageId(input: string): string {
   const m32 = input.match(/[0-9a-fA-F]{32}/);
