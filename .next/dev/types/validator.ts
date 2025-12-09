@@ -27,6 +27,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../app/api/notion_ping/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/notion_ping">> = Specific
+  const handler = {} as typeof import("../../../app/api/notion_ping/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../app/api/read_page/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/read_page">> = Specific
