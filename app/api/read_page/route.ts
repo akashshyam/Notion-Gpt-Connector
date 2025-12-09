@@ -4,6 +4,13 @@ const NOTION_TOKEN = process.env.NOTION_TOKEN!;
 const NOTION_VERSION = process.env.NOTION_VERSION || "2022-06-28";
 const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY!;
 
+console.log("ENV_CHECK", {
+  hasNotionToken: !!process.env.NOTION_TOKEN,
+  tokenPrefix: (process.env.NOTION_TOKEN || "").slice(0, 4),
+  tokenLen: (process.env.NOTION_TOKEN || "").length
+});
+
+
 function requireKey(req: Request) {
   if (req.headers.get("x-api-key") !== INTERNAL_API_KEY) throw new Error("unauthorized");
 }
